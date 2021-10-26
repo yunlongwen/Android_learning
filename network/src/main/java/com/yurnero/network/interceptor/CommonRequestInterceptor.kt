@@ -1,4 +1,4 @@
-package com.yurnero.network.base.interceptor
+package com.yurnero.network.interceptor
 
 
 import okhttp3.Interceptor

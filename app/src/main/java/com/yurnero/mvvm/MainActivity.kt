@@ -15,7 +15,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         HmiNetworkApi.getService(HmiApiInterface::class.java).login(LoginParam("jiemeng", "123"))
-            .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
             .subscribe {
                 Log.d("WYL", "login success" + it.result.data)
             }

@@ -1,9 +1,10 @@
 package com.yurnero.network.base
 
 import android.app.Application
-import com.yurnero.network.base.interceptor.CommonRequestInterceptor
-import com.yurnero.network.base.interceptor.CommonResponseInterceptor
+import com.yurnero.network.interceptor.CommonRequestInterceptor
+import com.yurnero.network.interceptor.CommonResponseInterceptor
 import com.yurnero.network.environment.IEnvironment
+import io.reactivex.functions.Function
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -44,7 +45,9 @@ abstract class NetworkApi protected constructor() : IEnvironment {
             .baseUrl(baseUrl)
             .client(getOkhttpClient())
             .addConverterFactory(GsonConverterFactory.create())
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .addCallAdapterFactory(
+                CallAdapterFactoryProxy.create().addInterceptor()
+            )
             .build()
         retrofitMap[baseUrl + service.name] = retrofit
         return retrofit
@@ -66,7 +69,6 @@ abstract class NetworkApi protected constructor() : IEnvironment {
         return okHttpClient!!
     }
 
-    abstract fun getInterceptor(): Interceptor?
-
+    protected abstract fun getInterceptor(): Interceptor?
 
 }

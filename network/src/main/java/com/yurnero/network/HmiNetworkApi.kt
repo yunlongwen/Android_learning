@@ -33,11 +33,6 @@ class HmiNetworkApi : NetworkApi() {
             val builder: Request.Builder = original.newBuilder()
                 .header("X-LC-ID", "yynqiWax1jvQBhUgv571UASb-gzGzoHsz")
                 .header("X-LC-Key", "kyctX1GO7U8YQ86xBxnelEDl")
-//        val token: String? =
-//            SharedPreferencesHelper.getString(SharedPreferencesHelper.SP_KEY_SESSION_TOKEN)
-//        if (!token.isNullOrBlank()) {
-//            builder.header("X-LC-Session", token)
-//        }
             it.proceed(builder.build())
         }
     }
