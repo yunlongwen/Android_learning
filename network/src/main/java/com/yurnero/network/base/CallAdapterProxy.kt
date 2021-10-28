@@ -1,5 +1,7 @@
 package com.yurnero.network.base
 
+import android.annotation.SuppressLint
+import com.yurnero.network.exceptionhandler.HttpErrorHandler
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -15,6 +17,7 @@ internal class CallAdapterProxy<R>(
         return adapter?.responseType()
     }
 
+    @SuppressLint("CheckResult")
     override fun adapt(call: Call<R>): Observable<*>? {
         if (null != adapter) {
             var result: Any? = adapter.adapt(call)
@@ -22,6 +25,7 @@ internal class CallAdapterProxy<R>(
                 var observable: Observable<*> = result
                 observable.apply {
                     subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                        .onErrorResumeNext(HttpErrorHandler())
                         .let {
                             observable = it
                         }

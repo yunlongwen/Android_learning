@@ -9,3 +9,5 @@ rootProject.name = "mvvm"
 include ':app'
 include ':network'
 include ':base'
+include ':login'
+include ':common'

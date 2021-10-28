@@ -1,22 +1,21 @@
 package com.yurnero.mvvm
 
-import LoginParam
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
+import com.yurnero.base.autoservice.BaseServiceLoader
+import com.yurnero.common.autoservice.ILoginService
+import com.yurnero.mvvm.databinding.ActivityMainBinding
 
-import com.yurnero.mvvm.api.HmiApiInterface
-import com.yurnero.network.HmiNetworkApi
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        HmiNetworkApi.getService(HmiApiInterface::class.java).login(LoginParam("jiemeng", "123"))
-            .subscribe {
-                Log.d("WYL", "login success" + it.result.data)
-            }
+        DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
+        val loginService = BaseServiceLoader.load(ILoginService::class.java)
+        val loginFragment = loginService?.getLoginFragment()
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.container, loginFragment!!)
+        transaction.commit()
     }
 }
