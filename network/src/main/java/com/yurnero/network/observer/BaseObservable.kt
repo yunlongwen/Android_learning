@@ -1,6 +1,5 @@
 package com.yurnero.network.observer
 
-import android.util.Log
 import com.yurnero.base.model.BaseDataObserver
 import com.yurnero.base.model.BaseModel
 import com.yurnero.base.model.ResponseThrowable
@@ -14,7 +13,6 @@ abstract class BaseObserver<T>(dataObserver: BaseDataObserver<T>, model: BaseMod
     protected var model: BaseModel<*, *>? = model
 
     override fun onSubscribe(d: Disposable) {
-        Log.d("wyl", "onSubscribe")
         model?.addDisposable(d)
     }
 

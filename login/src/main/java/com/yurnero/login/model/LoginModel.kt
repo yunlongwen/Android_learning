@@ -1,6 +1,5 @@
 package com.yurnero.login.model
 
-import android.util.Log
 import com.yurnero.base.model.BaseDataObserver
 import com.yurnero.base.model.BaseModel
 import com.yurnero.base.model.IBaseModelListener
@@ -16,12 +15,10 @@ class LoginModel(listener: IBaseModelListener<LoginData>) :
         cacheKey = "key_login_data"
     ) {
     override fun onTransformToViewModels(data: LoginResponse, isCache: Boolean) {
-        Log.d("wyl", "onTransformToViewModels")
         iBaseModelListener?.onLoadSuccess(model = this, data = arrayListOf(data.result.data))
     }
 
     override fun onFailure(e: ResponseThrowable) {
-        Log.d("wyl", "onFailure")
         iBaseModelListener?.onLoadFail(model = this, prompt = e.message)
     }
 

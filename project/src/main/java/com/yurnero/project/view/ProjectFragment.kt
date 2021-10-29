@@ -1,26 +1,26 @@
-package com.yurnero.login.view
+package com.yurnero.project.view
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.lifecycle.SavedStateViewModelFactory
 import androidx.lifecycle.ViewModelProvider
 import com.yurnero.base.fragment.BaseFragment
-import com.yurnero.login.R
-import com.yurnero.login.databinding.FragmentLoginBinding
-import com.yurnero.login.model.LoginData
-import com.yurnero.login.viewmodel.LoginViewModel
+import com.yurnero.project.R
+import com.yurnero.project.databinding.FragmentProjectBinding
+import com.yurnero.project.model.ProjectBean
+import com.yurnero.project.viewmodel.ProjectViewModel
 
-class LoginFragment : BaseFragment<FragmentLoginBinding, LoginViewModel>() {
-
+class ProjectFragment : BaseFragment<FragmentProjectBinding, ProjectViewModel>() {
     override fun getLayoutId(): Int {
-        return R.layout.fragment_login
+        return R.layout.fragment_project
     }
 
-    override fun createViewModel(): LoginViewModel {
+    override fun createViewModel(): ProjectViewModel {
         return ViewModelProvider(
             requireActivity(),
             SavedStateViewModelFactory(requireActivity().application, requireActivity(), arguments)
-        ).get(LoginViewModel::class.java)
+        ).get(ProjectViewModel::class.java)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -29,8 +29,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding, LoginViewModel>() {
     }
 
     override fun bindData(data: ArrayList<*>) {
-        val loginData = data as ArrayList<LoginData>
-        viewDataBinding.loginData = loginData[0]
+        val result = data as ArrayList<ProjectBean>
+        viewDataBinding.projectName.text = result[0].data[0].name
     }
-
 }

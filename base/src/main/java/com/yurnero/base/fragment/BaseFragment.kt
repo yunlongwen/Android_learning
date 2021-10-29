@@ -1,7 +1,6 @@
 package com.yurnero.base.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,7 +14,7 @@ import com.yurnero.base.viewmodel.ViewStatus
 
 abstract class BaseFragment<VIEW : ViewDataBinding, VIEW_MODEL : BaseViewModel<*>> : Fragment(),
     Observer<Any> {
-    protected lateinit var viewDataBinding: ViewDataBinding
+    protected lateinit var viewDataBinding: VIEW
 
     protected lateinit var viewModel: BaseViewModel<*>
 
@@ -24,9 +23,9 @@ abstract class BaseFragment<VIEW : ViewDataBinding, VIEW_MODEL : BaseViewModel<*
 
         } else if (t is ArrayList<*>) {
             if (t.size > 0)
-                onDataBack(t)
+                bindData(t)
         } else if (t is String) {
-            if (!t.isNullOrBlank())
+            if (t.isNotBlank())
                 Toast.makeText(activity, t, Toast.LENGTH_LONG).show()
         }
     }
@@ -52,5 +51,5 @@ abstract class BaseFragment<VIEW : ViewDataBinding, VIEW_MODEL : BaseViewModel<*
 
     abstract fun createViewModel(): BaseViewModel<*>
 
-    abstract fun onDataBack(data: ArrayList<*>)
+    abstract fun bindData(data: ArrayList<*>)
 }

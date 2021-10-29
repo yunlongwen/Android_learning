@@ -33,6 +33,8 @@ class HmiNetworkApi : NetworkApi() {
             val builder: Request.Builder = original.newBuilder()
                 .header("X-LC-ID", "yynqiWax1jvQBhUgv571UASb-gzGzoHsz")
                 .header("X-LC-Key", "kyctX1GO7U8YQ86xBxnelEDl")
+                .header("X-LC-Session", "arp6su86pzqnztgsdp0ytezjb")
+
             it.proceed(builder.build())
         }
     }

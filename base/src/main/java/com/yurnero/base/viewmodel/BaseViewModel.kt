@@ -33,11 +33,11 @@ abstract class BaseViewModel<RESULT_DATA>(savedStateHandle: SavedStateHandle) :
         status.value = ViewStatus.EMPTY
     }
 
-    public fun fresh() {
+    open fun fresh() {
         model?.fresh()
     }
 
-    public fun nextPage() {
+    open fun nextPage() {
         model?.loadNextPage()
     }
 
